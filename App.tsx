@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { View } from "react-native";
+import Home from "./src/components/Home";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import QRScanner from "./src/components/QRScanner";
 
 export default function App() {
+  const stack = createNativeStackNavigator();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          <NavigationContainer>
+            <stack.Navigator initialRouteName="home">
+              <stack.Screen
+                name="home"
+                component={Home}
+                options={{ headerShown: false }}
+              />
+              <stack.Screen
+                name="scan"
+                component={QRScanner}
+                options={{ headerShown: false }}
+              />
+            </stack.Navigator>
+          </NavigationContainer>
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
