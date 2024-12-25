@@ -4,6 +4,7 @@ import { View } from "react-native";
 import Home from "./src/components/Home";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import QRScanner from "./src/components/QRScanner";
+import "./global.css";
 
 export default function App() {
   const stack = createNativeStackNavigator();
