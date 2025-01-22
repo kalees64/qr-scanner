@@ -1,6 +1,6 @@
 import { Camera, CameraView, useCameraPermissions } from "expo-camera";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Button,
@@ -12,6 +12,8 @@ import {
   View,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { isValid, getFormat, getRealFormat } from "gtin";
+import { useZxing } from "react-zxing";
 
 type Prop = {
   type: any;
@@ -36,9 +38,13 @@ const QRScanner = ({ navigation }: { navigation: any }) => {
   const handleBarCodeScanned = ({ type, data }: Prop) => {
     setScanned(true);
 
+    console.log("-- Is valid Barcode : ", isValid(data));
+    console.log("-- GTIN Format : ", getFormat(data));
+    console.log("-- GTIN Real Format : ", getRealFormat(data));
+
     Alert.alert(
       `Scanning ${type} Result`,
-      `Data: ${data}`,
+      `Data: ${data}\nBarcode Format : ${getRealFormat(data)}`,
       [
         {
           text: "OK",
@@ -47,7 +53,7 @@ const QRScanner = ({ navigation }: { navigation: any }) => {
       ],
       { cancelable: false }
     );
-    navigation.goBack();
+    // navigation.goBack();
   };
 
   const handleBarCodeScanned2 = ({
