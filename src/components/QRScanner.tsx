@@ -35,16 +35,18 @@ const QRScanner = ({ navigation }: { navigation: any }) => {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }: Prop) => {
+  const handleBarCodeScanned = (data: any) => {
     setScanned(true);
 
-    console.log("-- Is valid Barcode : ", isValid(data));
-    console.log("-- GTIN Format : ", getFormat(data));
-    console.log("-- GTIN Real Format : ", getRealFormat(data));
+    console.log("-- Is valid Barcode : ", isValid(data.data));
+    console.log("-- GTIN Format : ", getFormat(data.data));
+    console.log("-- GTIN Real Format : ", getRealFormat(data.data));
+
+    console.log("--Scanned Data : ", data);
 
     Alert.alert(
-      `Scanning ${type} Result`,
-      `Data: ${data}\nBarcode Format : ${getRealFormat(data)}`,
+      `Scanning Result`,
+      `Data: ${data.data}\nBarcode Format : ${getRealFormat(data.data)}`,
       [
         {
           text: "OK",
